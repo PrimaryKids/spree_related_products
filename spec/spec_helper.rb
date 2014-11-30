@@ -32,13 +32,13 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.use_transactional_fixtures = false
 
-  config.before do
-    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
-    DatabaseCleaner.start
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with :truncation
   end
 
-  config.after do
-    DatabaseCleaner.clean
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning { example.run }
   end
 
   Capybara.javascript_driver = :poltergeist
