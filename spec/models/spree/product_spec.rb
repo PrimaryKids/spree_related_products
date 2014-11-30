@@ -56,11 +56,11 @@ describe Spree::Product do
       end
 
       it 'recognize the method with has_related_products?(method)' do
-        @product.has_related_products?('related_products').should be_true
+        @product.has_related_products?('related_products').should be_truthy
       end
 
       it 'not recognize non-existent methods with has_related_products?(method)' do
-        @product.has_related_products?('unrelated_products').should_not be_true
+        @product.has_related_products?('unrelated_products').should_not be_truthy
       end
 
       it 'is the pluralised form of the RelationType name' do
